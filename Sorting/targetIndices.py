@@ -1,3 +1,4 @@
+# 5min
 class Solution(object):
     def targetIndices(self, nums, target):
         """

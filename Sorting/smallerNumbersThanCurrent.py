@@ -1,3 +1,4 @@
+# 10
 class Solution(object):
     def smallerNumbersThanCurrent(self, nums):
         """
