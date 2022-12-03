@@ -76,7 +76,7 @@ class Solution():
 
             
 mySolution = Solution()
-print(mySolution.LongestValidParenthesis('()()())()()()())()()()()())()()()()())()()()'))
+print(mySolution.LongestValidParenthesis('()'))
             
 
 """
