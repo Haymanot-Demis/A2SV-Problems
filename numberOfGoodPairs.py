@@ -1,7 +1,7 @@
 #time = 10
 import math
 class Solution:
-    def numIdenticalPairs(self, nums: List[int]) -> int:
+    def numIdenticalPairs(self, nums: list[int]) -> int:
         numberOfGoodPairs = 0;
         for i in range(len(nums) - 1):
             for j in range(i + 1, len(nums)):
@@ -10,7 +10,7 @@ class Solution:
         return numberOfGoodPairs
 
 class Solution1:
-    def numIdenticalPairs(self, nums: List[int]) -> int:
+    def numIdenticalPairs(self, nums: list[int]) -> int:
         frequencyArray = [0]*100
         numberOfGoodPairs = 0;
         for num in nums:
