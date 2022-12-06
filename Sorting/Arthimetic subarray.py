@@ -8,10 +8,10 @@ class Solution(object):
         :rtype: List[bool]
         """
         answer = [True]*len(l)
-        print(answer)
+        # print(answer)
         for i in range(len(l)):
             subarray = nums[l[i]:r[i] + 1]
-            print(subarray)
+            # print(subarray)
             subarray.sort()
             commonDistance = subarray[1] - subarray[0]
             if len(subarray) == 2:
