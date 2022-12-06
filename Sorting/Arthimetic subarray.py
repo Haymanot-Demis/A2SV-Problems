@@ -21,11 +21,8 @@ class Solution(object):
                     if subarray[k] - subarray[k - 1] != commonDistance:
                         answer[i] = False
                         break
-            print(subarray, answer[i])
+            # print(subarray, answer[i])
         return answer
 
 mySolution = Solution()
-mySolution.checkArithmeticSubarrays([4,6,5,9,3,7], [0,0,2], [2,3,5])
-
-
-
+print(mySolution.checkArithmeticSubarrays([4,6,5,9,3,7], [0,0,2], [2,3,5]))

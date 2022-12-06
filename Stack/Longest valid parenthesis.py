@@ -29,27 +29,61 @@ class Solution():
 
     
     def LongestValidParenthesis(self, s):
-        return self.ValidParenthesis(s,"")
+        return self.ValidParenthesis(s)
 
     
-    def checkNestedParenthesis(self, s):
+    def OuterFunction(self, s):
+        return self.checkNestedParenthesis(s, True)[0]
+
+    
+    def checkNestedParenthesis(self, s, flag = False):
         stack = list()
         i = 0;
         validParenthesis = ''
+        prevParenthesis = ''
+        interupted = False
+
         while i < len(s):
             char = s[i]
+            if interupted:
+                if len(validParenthesis) > len(prevParenthesis):  
+                    prevParenthesis = validParenthesis
+                validParenthesis = ''
+                interupted = False
             if char == '(' and len(stack) == 0: # check to ensure no infinite loop
-                if len(s)-1 > s.index(char):
+                if len(s)-1 > i:
                     validParenthesis += char
                     stack.append("(")
             elif char == '(':
-                result = self.checkNestedParenthesis(s[i+1:])
+                print(s[i:],i)
+                result = self.checkNestedParenthesis(s[i:]) # s[i+1]???
+                print(stack)
+                stack.clear()
+                print(stack)
+                print(result, i)
+               
 
                 # i think the else part is unnecessary and the comment inside it is talking about the issue of the if part
                 if result[1] >= 0:
-                    validParenthesis += result[0]
-                    i += len(result[0]) # don't forgot to add one for the next iteration (done)
-                    # if i + result[1] == len(s) => we reach end of line and we don't get a match for the current char so check which is the longest valid parenthesis and return it else it returned since it got the match so continue                    
+                    print(i)
+                    i += result[1] # don't forgot to add one for the next iteration (done)
+                    # if i + result[1] == len(s) => we reach end of line and we don't get a match for the current char so check which is the longest valid parenthesis and return it else it returned since it got the match so continue    
+                    print(i)
+                    if i == len(s): # reached end of line so return largest valid parenthesis
+                        print("Returned parenth",i, result)
+
+                        if len(validParenthesis) < len(result[0]):
+                            # print("v < r")
+                            if len(result[0]) > len(prevParenthesis):
+                                return [result[0], i]
+                            else:
+                                return [prevParenthesis, i]
+                        elif len(validParenthesis) >= len(prevParenthesis):
+                            return [validParenthesis[:-1], i]
+                        else:
+                            return [prevParenthesis, i]
+                    else: # got match so continue
+                        validParenthesis += result[0] + ')'
                 else:
                     if len(validParenthesis) < len(result[0]):
                         validParenthesis = result[0]
@@ -66,18 +100,33 @@ class Solution():
             elif char == ')' and len(stack) != 0:
                 if stack[-1] == '(':
                     validParenthesis +=  char
+                    stack.pop()
+            elif char == ')' and len(stack) == 0 and flag == True:
+                interupted = True
+                pass
             else:
+                print("got error with empty stack asked for match", i)
                 break # got error with empty stack asked for match
-
-            i += 1   # increment the index                              
-
+            print("90", i)
+            i += 1   # increment the index 
+                                         
         
-        return [validParenthesis, i]
+        if len(validParenthesis) >= len(prevParenthesis):
+            return [validParenthesis, i]
+        return [prevParenthesis, i]
+
+
 
             
 mySolution = Solution()
-print(mySolution.LongestValidParenthesis('()'))
-            
+print(len(mySolution.OuterFunction('(()))(()()))))')))
+"""                                                       (((((()()()()()(()())))))))
+give it a flag to tell it that it is from nested or not
+if len(validParenthesis) >= len(prevParenthesis):
+                                return [validParenthesis[:-1], i]
+                            else:
+                                return [prevParenthesis[:-1], i] check this concept
+"""
 
 """
 it will return
