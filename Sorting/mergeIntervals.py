@@ -17,3 +17,4 @@ class Solution(object):
                 return self.mergeInterval(intervals, start + 1)
         else:
             return intervals
+            
