@@ -77,21 +77,20 @@ class GraphWithAdjList():
     def getAdjList(self):
         return self.adjList
 
-    def DepthFirstSearch(self, start, visited=None):
-        # stack = list()
-        # stack.append(start)
-        # found = False
+    def DepthFirstSearch(self, start, dest, visited=None): # path checker
+        result = False
         if visited == None:
             visited = list()
         if start not in visited:
             visited.append(start)
-        print(start)
+        if start == dest:
+            return True
         for adj in self.adjList[start]:
             if adj not in visited:
-                self.DepthFirstSearch(adj, visited)
+                result = self.DepthFirstSearch(adj, dest, visited)
 
         print("visited", visited)
-        
+        return result
 
     def BreadthFirstSearch(self):
         pass
@@ -106,6 +105,7 @@ graph.addVertex("chicago")
 graph.addVertex("atlanta")
 graph.addVertex("houston")
 graph.addVertex("washington")
+graph.addVertex("Texas")
 
 print(graph.getAdjList())
 
@@ -117,7 +117,8 @@ graph.addEdge("denver", "dallas")
 graph.addEdge("houston", "atlanta")
 graph.addEdge("dallas", "washington")
 graph.addEdge("atlanta", "washington")
+graph.addEdge("Texas", "washington")
 
 print(graph.getAdjList())
-graph.DepthFirstSearch('austin')
+print(graph.DepthFirstSearch('austin', 'Texas'))
 

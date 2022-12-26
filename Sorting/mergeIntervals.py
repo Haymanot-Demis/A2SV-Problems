@@ -16,5 +16,4 @@ class Solution(object):
             else:
                 return self.mergeInterval(intervals, start + 1)
         else:
-            return intervals
-            
+            return intervals            
