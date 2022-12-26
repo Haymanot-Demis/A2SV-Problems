@@ -77,20 +77,18 @@ class GraphWithAdjList():
     def getAdjList(self):
         return self.adjList
 
-    def DepthFirstSearch(self, start, end):
-        stack = list()
-        stack.append(start)
-        found = False
-        visited = list()
-        while stack:
-            print(stack)
-            curr = stack.pop()
-            print(curr)
-            if curr not in visited:
-                visited.append(curr)
-            for adj in self.adjList[curr]:
-                if adj not in visited:
-                    stack.append(adj)
+    def DepthFirstSearch(self, start, visited=None):
+        # stack = list()
+        # stack.append(start)
+        # found = False
+        if visited == None:
+            visited = list()
+        if start not in visited:
+            visited.append(start)
+        print(start)
+        for adj in self.adjList[start]:
+            if adj not in visited:
+                self.DepthFirstSearch(adj, visited)
 
         print("visited", visited)
         
@@ -121,5 +119,5 @@ graph.addEdge("dallas", "washington")
 graph.addEdge("atlanta", "washington")
 
 print(graph.getAdjList())
-graph.DepthFirstSearch('austin','denver')
+graph.DepthFirstSearch('austin')
 
