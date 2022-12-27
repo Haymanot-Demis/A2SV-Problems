@@ -92,8 +92,26 @@ class GraphWithAdjList():
         print("visited", visited)
         return result
 
-    def BreadthFirstSearch(self):
-        pass
+    def BreadthFirstSearch(self, start, dest):
+        queue = list()
+        visited = list()
+        queue.append(start)
+
+        while queue:
+            print(queue)
+            city = queue.pop(0)
+            print(city)
+            if city not in visited:
+                visited.append(city)
+            if city == dest:
+                print("\nvisited", visited)
+                return True
+            for adj in self.adjList[city]:
+                if adj not in visited:
+                    queue.append(adj)
+        
+        print("\nvisited", visited)
+        return False
     
 
 graph = GraphWithAdjList()
@@ -121,4 +139,5 @@ graph.addEdge("Texas", "washington")
 
 print(graph.getAdjList())
 print(graph.DepthFirstSearch('austin', 'Texas'))
+graph.BreadthFirstSearch('austin', 'Texas')
 
