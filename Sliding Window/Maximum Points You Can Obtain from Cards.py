@@ -1,5 +1,5 @@
 class Solution:
-    def maxScore(self, cardPoints: List[int], k: int) -> int:
+    def maxScore(self, cardPoints: list[int], k: int) -> int:
         # first add the first k points then add one card from the end of the card list and subtract on card from right side of the first k cards
         j = len(cardPoints) - 1
         currScore = sum(cardPoints[:k]) 

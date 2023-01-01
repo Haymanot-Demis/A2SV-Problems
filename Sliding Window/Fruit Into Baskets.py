@@ -1,6 +1,6 @@
 import collections
 class Solution:
-    def totalFruit(self, fruits: List[int]) -> int:
+    def totalFruit(self, fruits: list[int]) -> int:
         maxSum = 0
         left = 0
         right = 0

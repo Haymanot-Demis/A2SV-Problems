@@ -1,7 +1,7 @@
 #time 70
 import collections
 class Solution:
-    def findAnagrams(self, s: str, p: str) -> List[int]:
+    def findAnagrams(self, s: str, p: str) -> list[int]:
         srcHash = dict(collections.Counter(p))
         windowSize = len(p)
         windowEnd = windowSize - 1
