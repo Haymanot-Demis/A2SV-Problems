@@ -112,6 +112,7 @@ class GraphWithAdjList():
         
         print("\nvisited", visited)
         return False
+
     
 
 graph = GraphWithAdjList()
@@ -139,5 +140,5 @@ graph.addEdge("Texas", "washington")
 
 print(graph.getAdjList())
 print(graph.DepthFirstSearch('austin', 'Texas'))
-graph.BreadthFirstSearch('austin', 'Texas')
+print(graph.BreadthFirstSearch('austin', 'Texas'))
 
