@@ -3,11 +3,21 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        countArray = [0, 0, 0]
-        for num in nums:
-            countArray[num] += 1
-        i = 0
-        for j in range(3):
-            for _ in range(countArray[j]):
-                nums[i] = j
-                i += 1
+        length = len(nums)
+        hold = length - 1
+        for seeker in range(length - 1, -1, -1):
+            if nums[seeker] != 0:
+                nums[seeker], nums[hold] = nums[hold], nums[seeker]
+                hold -= 1
+
+        hold = length - 1
+        seeker = hold
+        while seeker > -1 and nums[seeker] != 0:
+            if nums[seeker] != 1:
+                nums[seeker], nums[hold] = nums[hold], nums[seeker]
+                seeker -= 1
+                hold -= 1
+            else:
+                seeker -= 1
+
+       
