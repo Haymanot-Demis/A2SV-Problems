@@ -86,14 +86,14 @@ class MyLinkedList:
         # self.getList()             
 
     def deleteAtIndex(self, index: int) -> None:
-        if index == 0:
-            self.head = self.head.next
-            self.length -= 1
-        elif index > 0 and index < self.length:
-            temp = self.head
-            while index > 1:
+        dummynode = Node()
+        dummynode.next = self.head
+        if index >= 0 and index < self.length:
+            temp = dummynode
+            while index > 0:
                 temp = temp.next
                 index -= 1
+            print(temp.next.value)
             if temp.next is self.end:
                 self.end = temp
             nodeToBeDeleted = temp.next
@@ -102,6 +102,24 @@ class MyLinkedList:
                 temp.next.prev = temp
             del nodeToBeDeleted
             self.length -= 1
+        self.head = dummynode.next
+        self.getList()
+        # if index == 0:
+        #     self.head = self.head.next
+        #     self.length -= 1
+        # elif index > 0 and index < self.length:
+        #     temp = self.head
+        #     while index > 1:
+        #         temp = temp.next
+        #         index -= 1
+        #     if temp.next is self.end:
+        #         self.end = temp
+        #     nodeToBeDeleted = temp.next
+        #     temp.next = temp.next.next
+        #     if temp.next:
+        #         temp.next.prev = temp
+        #     del nodeToBeDeleted
+        #     self.length -= 1
         # self.getList()
 
     def getList(self):
