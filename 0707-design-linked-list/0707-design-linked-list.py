@@ -18,7 +18,7 @@ class MyLinkedList:
             while index > 0:
                 temp = temp.next
                 index -= 1
-            # self.getList()
+            self.getList()
             return temp.value
         else:
             return -1
@@ -53,14 +53,13 @@ class MyLinkedList:
         # self.getList()
 
     def addAtIndex(self, index: int, val: int) -> None:
-        if index == 0:
-            self.addAtHead(val)
-        elif index > 0 and index <= self.length:
-            temp = self.head
-            while index > 1:
+        dummynode = Node()
+        dummynode.next = self.head
+        if index >= 0 and index <= self.length:
+            temp = dummynode
+            while index > 0:
                 temp = temp.next
                 index -= 1
-            # print("val", temp.value)
             node = Node(val)
             if temp is self.end:
                 self.end = node
@@ -68,6 +67,22 @@ class MyLinkedList:
             node.next = temp.next
             temp.next = node
             self.length += 1
+        self.head = dummynode.next
+        # if index == 0:
+        #     self.addAtHead(val)
+        # elif index > 0 and index <= self.length:
+        #     temp = self.head
+        #     while index > 1:
+        #         temp = temp.next
+        #         index -= 1
+        #     # print("val", temp.value)
+        #     node = Node(val)
+        #     if temp is self.end:
+        #         self.end = node
+        #     node.prev = temp
+        #     node.next = temp.next
+        #     temp.next = node
+        #     self.length += 1
         # self.getList()             
 
     def deleteAtIndex(self, index: int) -> None:
