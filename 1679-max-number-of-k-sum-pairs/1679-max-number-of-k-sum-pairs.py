@@ -1,14 +1,19 @@
 from collections import defaultdict
 class Solution:
     def maxOperations(self, nums: List[int], k: int) -> int:
-        hashmap = defaultdict(int)
+        nums.sort()
         count = 0
-        for i in range(len(nums)):
-            if hashmap[k - nums[i]] > 0:
-                count += 1
-                hashmap[k - nums[i]] -= 1
+        right = len(nums) - 1
+        left = 0
+        while left < right:
+            if nums[left] + nums[right] > k:
+                right -= 1
+            elif nums[left] + nums[right] < k:
+                left += 1
             else:
-                hashmap[nums[i]] += 1
+                count += 1
+                left += 1
+                right -= 1
             
         return count
 
