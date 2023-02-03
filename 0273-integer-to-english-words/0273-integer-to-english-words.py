@@ -1,5 +1,12 @@
 class Solution:
     def numberToWords(self, num: int) -> str:
+        """
+        the main idea behind this solution is we have to divide the whole number into 3 digit units then convert them in to word that is gives some hundreds then based on their position give their respective word naming
+        i.e for example 1,234,567,879
+        879 no extra naming just Eight Hundred Nine
+        567 is thousands division Five Hundred Sixty Seven Tousand etc..
+        the only diffence between each division is the last naming thousand, Million, Billion ...
+        """
         if num == 0:
             return "Zero"
         nums = str(num)[::-1]
