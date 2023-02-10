@@ -1,17 +1,11 @@
 class Solution:
     def pivotInteger(self, n: int) -> int:
-        left = 0
-        right = n + 1
-        rightSum = 0
-        leftSum = 0
-        while left < right:
-            if leftSum < rightSum:
-                left += 1
-                leftSum += left
-            else:
-                right -= 1
-                rightSum += right
-        if leftSum == rightSum:
-            return left
-        else:
-            return -1
+        totalSum = (n + 1)*n//2
+        print(totalSum)
+        prefixSum = [0]*(n + 1)
+        for i in range(1, n + 1):
+            prefixSum[i] += prefixSum[i - 1] + i
+            if totalSum - prefixSum[i - 1] == prefixSum[i]:
+                return i
+        return -1
+        
