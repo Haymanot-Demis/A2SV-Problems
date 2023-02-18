@@ -7,7 +7,6 @@ A substring is a contiguous non-empty sequence of characters within a string.
 As Polycarp loves to take on challenging problems, he decided to solve this one too. 
 Can you help Polycarp by writing a program that solves this problem?
 
-# can you hear me ?
 Example: 
 Input: s = "bacbab" --> b, a, c, b, a, ba, cb, ba, bac, bacb, acba
 Output: 7
