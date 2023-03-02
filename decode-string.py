@@ -1,4 +1,10 @@
 class Solution:
+    """
+    go from right most of the given string to left
+    if it is alphabetical add to the answer 
+    if it is closing bracket we have to compute inner expression so call the recursive funtion
+    if is opening bracket the next is number so take the number and mutiply the string and continue parsing
+    """
     def decodeString(self, s: str) -> str:
         s = list(s)
         decodeString = self.decodeStringHelper(s)
