@@ -18,6 +18,8 @@ class Solution:
         
     def bisect_left(self,nums, mid, left, target):
         right = mid
+        if nums[mid] == target and (mid == left or nums[mid - 1] < target):
+            return mid
         while left <= right:
             mid = left + (right - left) // 2
             if nums[mid] == target and (mid == left or nums[mid - 1] < target):
@@ -30,6 +32,8 @@ class Solution:
 
     def bisect_right(self,nums, mid, right, target):
         left = mid
+        if nums[mid] == target and (mid == right or nums[mid + 1] > target):
+            return mid
         while left <= right:
             mid = left + (right - left) // 2
             if nums[mid] == target and (mid == right or nums[mid + 1] > target):
