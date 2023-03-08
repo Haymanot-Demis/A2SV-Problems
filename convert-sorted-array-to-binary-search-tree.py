@@ -6,19 +6,12 @@
 #         self.right = right
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
-        left = 0
-        right = len(nums) - 1
-        mid = left + (right - left) // 2
-        tree = TreeNode(nums[mid])
-        def buildTree(root, left1, left2, right1, right2):
-            if left1 <= left2:
-                mid = left1 + (left2 - left1) // 2
-                root.left = TreeNode(nums[mid])
-                buildTree(root.left, left1, mid - 1, mid + 1, left2)
-            if right1 <= right2:
-                mid = right1 + (right2 - right1) // 2
-                root.right = TreeNode(nums[mid])
-                buildTree(root.right, right1, mid - 1, mid + 1, right2)
-        
-        buildTree(tree, left, mid - 1, mid + 1, right)
+        """
+        if we have sorted array inorder to make it hight balanced we should add equal number of nodes to the left and to the right to do that use binary search to get the middle value of the list each time and add the left elements as left subtree and the right elements as right subtree successively do this until the index is out of bound
+        """
+        def buildTree(left, right):
+            if left <= right:
+                mid = left + (right - left) // 2
+                return TreeNode(nums[mid], buildTree(left, mid - 1), buildTree(mid + 1, right))
+        tree = buildTree(0, len(nums) - 1)
         return tree
