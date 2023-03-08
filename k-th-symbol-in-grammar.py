@@ -1,0 +1,12 @@
+class Solution:
+    def kthGrammar(self, n: int, k: int) -> int:
+        if n == 1:
+            return 0
+        if n == 2:
+            return int("01"[k - 1])
+ 
+        if k > 2 ** (n - 3) * 2:
+            prevK = self.kthGrammar(n - 1, k - 2 ** (n - 3) * 2)
+            return int(not(prevK))
+        prevK = self.kthGrammar(n - 1, k) 
+        return prevK
