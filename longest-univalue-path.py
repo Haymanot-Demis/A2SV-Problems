@@ -6,6 +6,9 @@
 #         self.right = right
 class Solution:
     def longestUnivaluePath(self, root: Optional[TreeNode]) -> int:
+        """
+        go down as much as possible when reach leaf node go up by returning the current value and the longest unipath till now so that the current node can compare the prev value with the current value and determine if the univalue path can continue or stop here and each time calculate the maximum univalue path depending on the values of left, right, current and the univalue path length from left anfd right
+        """
         max_length = 0
         def findUnivaluePaths(root):
             nonlocal max_length
