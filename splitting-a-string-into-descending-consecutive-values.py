@@ -12,8 +12,8 @@ class Solution:
                     if backtrack(i + 1):
                         return True
                     ans.pop()
-                elif curr - ans[-1] > 2:
-                    break
-                    
+                # elif curr - ans[-1] > 2:
+                #     break
+
             return False
         return backtrack(0)
