@@ -4,28 +4,25 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
         binary_paths = []
-        def concatinate(s1, s2):
-            if s1 == "":
-                s1 += str(s2)
-            else:
-                s1 += "->" + str(s2)
-            return s1
         def findBinaryPaths(root, num):
             if not root.left and not root.right:
-                num = concatinate(num, root.val)
+                num.append(str(root.val))
                 binary_paths.append(num)
             elif not root.left:
-                num = concatinate(num, root.val)
-                findBinaryPaths(root.right, num)
+                num.append(str(root.val))
+                findBinaryPaths(root.right, num.copy())
             elif not root.right:
-                num = concatinate(num, root.val)
-                findBinaryPaths(root.left, num)
+                num.append(str(root.val))
+                findBinaryPaths(root.left, num.copy())
             else:
-                num = concatinate(num, root.val)
-                findBinaryPaths(root.left, num)
-                findBinaryPaths(root.right, num)
-        findBinaryPaths(root, "")
+                num.append(str(root.val))
+                findBinaryPaths(root.left, num.copy())
+                findBinaryPaths(root.right, num.copy())
+        findBinaryPaths(root, [])
+        for i in range(len(binary_paths)):
+            binary_paths[i] = "->".join(binary_paths[i])
         return binary_paths
