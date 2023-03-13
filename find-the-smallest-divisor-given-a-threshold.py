@@ -4,7 +4,7 @@ class Solution:
         high = max(nums)
         while low <= high:
             mid = low + (high - low) // 2
-            res = sum([ceil(num / mid) for num in nums])
+            res = -sum([-num // mid for num in nums])
             if res <= threshold:
                 high = mid - 1
             else:
