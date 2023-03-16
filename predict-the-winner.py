@@ -1,6 +1,6 @@
 class Solution:
     def PredictTheWinner(self, nums: List[int]) -> bool:
-        #I think we have to test every path in which the first person can go throug    
+        @cache    
         def isWinner(l, r, turn):
             if l > r:
                 return 0
