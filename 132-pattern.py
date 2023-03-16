@@ -1,19 +1,17 @@
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
-        monoton_stack = [] # decreasing
-        mins = [0]*len(nums)
-        mins[0] = nums[0]
-        for indx in range(1, len(nums)):
-            mins[indx] = min(mins[indx - 1], nums[indx])
-
-        for i in range(len(nums) - 1, -1, -1):
-            if nums[i] == mins[i]:
-                continue
-            while monoton_stack and monoton_stack[-1] < nums[i]:
-                if monoton_stack[-1] > mins[i]:
+        length = len(nums)
+        stack = []
+        smaller = []
+        stack.append(0)
+        smaller.append(nums[0])
+        for i in range(1, length):
+            smaller.append(min(smaller[-1], nums[i]))
+            while stack and nums[stack[-1]] <= nums[i]:
+                stack.pop()
+            if stack:
+                if smaller[stack[-1]] < nums[i]:
                     return True
-                monoton_stack.pop()
-            if not monoton_stack or monoton_stack[-1] > nums[i]:
-                monoton_stack.append(nums[i])
+            stack.append(i)
 
         return False
