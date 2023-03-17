@@ -3,10 +3,12 @@ class Solution:
         nums.sort()
         def backtrack(indx, subset, subsets):
             if len(nums) == indx:
-                subsets.add(tuple(subset))
+                subsets.append(subset)
                 return
             backtrack(indx + 1, subset + [nums[indx]], subsets)
+            while indx< len(nums) - 1 and nums[indx] == nums[indx + 1]:
+                indx += 1
             backtrack(indx + 1, subset, subsets)
-        subsets = set()
+        subsets = []
         backtrack(0, [], subsets)
         return subsets
