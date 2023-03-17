@@ -6,7 +6,7 @@ class Solution:
                 subsets.append(subset)
                 return
             backtrack(indx + 1, subset + [nums[indx]], subsets)
-            while indx< len(nums) - 1 and nums[indx] == nums[indx + 1]:
+            while indx < len(nums) - 1 and nums[indx] == nums[indx + 1]:
                 indx += 1
             backtrack(indx + 1, subset, subsets)
         subsets = []
