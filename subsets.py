@@ -1,11 +1,11 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        subsets = set()
-        def findSubsets(indx, subset):
-            subsets.add(tuple(subset))
+        def backtrack(indx, subset, subsets):
             if indx == len(nums):
+                subsets.append(subset.copy())
                 return 
-            findSubsets(indx + 1, subset | set([nums[indx]]))
-            findSubsets(indx + 1, subset)
-        findSubsets(0, set())
+            backtrack(indx + 1, subset + [nums[indx]], subsets)
+            backtrack(indx + 1, subset, subsets)
+        subsets = []
+        backtrack(0, [], subsets)
         return subsets
