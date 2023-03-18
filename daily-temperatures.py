@@ -4,20 +4,9 @@ class Solution:
         answer = [0] * n
         stack = []
         for i, temp in enumerate(temperatures):
+            # the concept behind this solution is evry element in the is less than the preceding number(greater than its next element) because if not the number before it will be the warmer day for it but it is not that is why it it is after it 
             while stack and temperatures[stack[-1]] < temp:
                 leftIndex = stack.pop()
                 answer[leftIndex] = i - leftIndex
             stack.append(i)
-        return answer
-
-    def dailyTemperatures2(self, temperatures: List[int]) -> List[int]: # has hign running time
-        answer = list()
-        for i in range(len(temperatures)):
-            count = 0
-            for j in range(i + 1, len(temperatures)):
-                if (temperatures[j] > temperatures[i]):
-                    count = j - i
-                    break
-                
-            answer.append(count)
         return answer
