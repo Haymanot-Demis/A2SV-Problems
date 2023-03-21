@@ -1,12 +1,19 @@
-class Solution:
-    def removeDuplicateLetters(self, s: str) -> str:
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        counter = Counter(s)
         visited = set()
-        last_occurence_index = {char:indx for indx, char in enumerate(s)}
         stack = []
-        for curr_index in range(len(s)):
-            if s[curr_index] not  in visited:
-                while stack and stack[-1] >= s[curr_index] and last_occurence_index[stack[-1]] > curr_index:
+        for char in s:
+            if char not in visited:
+                while stack and char < stack[-1] and counter[stack[-1]]:
                     visited.remove(stack.pop())
-                stack.append(s[curr_index])
-                visited.add(s[curr_index])
+                stack.append(char)
+                visited.add(char)
+                counter[char] -= 1
+            else:
+                counter[char] -= 1
         return "".join(stack)
