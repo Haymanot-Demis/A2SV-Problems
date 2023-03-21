@@ -38,6 +38,3 @@ class Solution:
                 stack.append(result)
             index += 1
         return sum(stack)
-
-
-        return 0
