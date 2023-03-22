@@ -17,11 +17,12 @@ class Solution:
                 merged.extend(right_arr[p2:])
             return merged
 
-        def mergeSort(arr):
-            if len(arr) <= 1:
-                return arr
-            mid = len(arr) // 2
-            left_half = mergeSort(arr[:mid])
-            right_half = mergeSort(arr[mid:])
+        def mergeSort(left, right, arr):
+            print([left, right])
+            if left == right:
+                return arr[left:right+1]
+            mid = left + (right - left) // 2
+            left_half = mergeSort(left, mid, arr)
+            right_half = mergeSort(mid + 1, right, arr)
             return merge(left_half, right_half)
-        return mergeSort(nums)
+        return mergeSort(0, len(nums), nums)
