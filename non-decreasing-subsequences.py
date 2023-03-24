@@ -8,8 +8,6 @@ class Solution:
 
             if not subsequence or nums[indx] >= subsequence[-1]:
                 backtrack(indx + 1, subsequence + [nums[indx]], True, subsequences)
-                while indx < len(nums) - 1 and nums[indx] == nums[indx + 1]:
-                    indx += 1
                 backtrack(indx + 1, subsequence, False, subsequences)
             else:
                 backtrack(indx + 1, subsequence, False, subsequences)
