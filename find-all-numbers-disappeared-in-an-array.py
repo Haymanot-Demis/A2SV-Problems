@@ -1,20 +1,8 @@
 class Solution:
     def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
-        length = len(nums)
-        indx = 0
-        disappeared = []
-        while indx < length:
-            if nums[indx] - 1 == indx:
-                nums[indx] = -1
-                indx += 1
-            elif nums[indx] != -1 and nums[nums[indx] - 1] != -1:
-                nums[nums[indx] - 1], nums[indx] = -1, nums[nums[indx] - 1]
-            else:
-                indx += 1
-        
-        for indx in range(length):
-            if nums[indx] != -1:
-                disappeared.append(indx + 1)
-        return disappeared
-
-        return duplicates
+        count = defaultdict(int, Counter(nums))
+        missed_nums = []
+        for i in range(1, len(nums) + 1):
+            if not count[i]:
+                missed_nums.append(i)
+        return missed_nums
