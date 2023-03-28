@@ -1,17 +1,13 @@
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
-        length  = len(nums)
-        pointer = 0
-        while pointer < length:
-            if nums[pointer] == pointer:
-                nums[pointer] = -1
-                pointer += 1
-            elif nums[pointer] < length and nums[pointer] != -1:
-                nums[nums[pointer]], nums[pointer] = -1, nums[nums[pointer]]
+        length  = len(nums) + 1
+        nums.append(length)
+        i = 0
+        while i < length:
+            if nums[i] != i and nums[i] != length:
+                temp = nums[i]
+                nums[i] = nums[nums[i]]
+                nums[temp] = temp
             else:
-                pointer += 1
-        
-        for indx in range(len(nums)):
-            if nums[indx] != -1:
-                return indx
-        return length
+                i += 1
+        return nums.index(length)
