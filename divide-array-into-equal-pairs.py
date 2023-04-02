@@ -1,7 +1,6 @@
 class Solution:
     def divideArray(self, nums: List[int]) -> bool:
-        counts = Counter(nums)
-        for count in counts.values():
-            if count % 2:
-                return False
-        return True
+        binary = 0
+        for num in nums:
+            binary ^= (1 << num)
+        return binary == 0
