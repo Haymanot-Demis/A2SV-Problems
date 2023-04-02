@@ -2,7 +2,10 @@ class Solution:
     def maxProduct(self, words: List[str]) -> int:
         words_set = []
         for word in words:
-            words_set.append(set(word))
+            word_bit = 0
+            for char in word:
+                word_bit |= 1 << (ord(char) - 97)
+            words_set.append(word_bit)
         max_len_prod = 0
         for i in range(len(words) - 1):
             for j in range(i + 1, len(words)):
