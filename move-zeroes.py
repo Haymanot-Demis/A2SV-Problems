@@ -6,14 +6,10 @@ class Solution:
         numsLength = len(nums)
         left = 0
         right = 0
-        while left < numsLength:
-            while left < numsLength and nums[left] != 0:
+        while right < numsLength:
+            if nums[right] != 0:
+                nums[left], nums[right] = nums[right], nums[left]
                 left += 1
-            if left == numsLength:
-                break
-            right = left + 1
-            while right < numsLength and nums[right] == 0:
                 right += 1
-            if right == numsLength:
-                break
-            nums[left], nums[right] = nums[right], nums[left]
+            else:
+                right += 1
