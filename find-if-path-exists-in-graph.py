@@ -10,6 +10,7 @@ class Solution:
             curr = stack.pop()
             if curr == destination:
                 return True
+            visited.add(curr)
             for v in adj_list[curr]:
                 if v not in visited:
                     visited.add(v)
