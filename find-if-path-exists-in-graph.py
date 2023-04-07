@@ -4,15 +4,14 @@ class Solution:
         for u, v in edges:
             adj_list[u].append(v)
             adj_list[v].append(u)
-        stack = [source]
-        visited = set()
-        while stack:
-            curr = stack.pop()
-            if curr == destination:
-                return True
-            visited.add(curr)
-            for v in adj_list[curr]:
-                if v not in visited:
-                    visited.add(v)
-                    stack.append(v)
+        return self.dfs(source, adj_list, set(), destination)
+    def dfs(self, node, adj_list, visited, dest):
+        if node == dest:
+            return True
+        visited.add(node)
+        for v in adj_list[node]:
+            if v not in visited:
+                if self.dfs(v, adj_list, visited, dest):
+                    return True
+                
         return False
