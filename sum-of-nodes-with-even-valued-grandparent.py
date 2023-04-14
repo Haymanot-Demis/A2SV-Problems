@@ -10,6 +10,7 @@ class Solution:
         def sumNodes(parent, evenParent, evenGP, prev_sum):
             if parent:
                 if evenGP:
+                    print(parent.val)
                     prev_sum[0] += parent.val
                 sumNodes(parent.left, parent.val % 2 == 0, evenParent, prev_sum)
                 sumNodes(parent.right, parent.val % 2 == 0, evenParent, prev_sum)
