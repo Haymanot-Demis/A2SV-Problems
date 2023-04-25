@@ -18,16 +18,10 @@ class Solution:
         return self.dfs(employee_of, id)
 
     def dfs(self, employee_of, curr):
-        def visited(id):
-            if employee_of[id].importance == 101:
-                return True
-            return False
-
         importances = employee_of[curr].importance
         employee_of[curr].importance = 101
 
         for subordinate in employee_of[curr].subordinates:
-            if not visited(subordinate):
-                importances += self.dfs(employee_of, subordinate)
-                
+            importances += self.dfs(employee_of, subordinate)
+
         return importances
