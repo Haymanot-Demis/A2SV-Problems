@@ -7,16 +7,8 @@ class Solution:
                 if grid[i][j] == 2:
                     grid[i][j] = 0
                     queue.append((i, j))
-                elif grid[i][j] == 0:
-                    zeroes += 1
 
-        if zeroes == len(grid) * len(grid[0]):
-            return 0
-        
-        if len(queue) == 0:
-            return -1
-
-        seconds = 0
+        seconds = -1
         directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
         while queue:
             seconds += 1
@@ -36,4 +28,4 @@ class Solution:
                 if grid[i][j] == 1:
                     return -1
 
-        return seconds - 1
+        return seconds if seconds != -1 else 0
