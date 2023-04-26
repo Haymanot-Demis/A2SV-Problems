@@ -10,13 +10,13 @@ class Solution:
         levels_average = []
         while queue:
             curr_level_len = len(queue)
-            this_level = []
+            this_level_sum = 0
             for i in range(curr_level_len):
                 curr = queue.popleft()
-                this_level.append(curr.val)
+                this_level_sum += curr.val
                 if curr.left:
                     queue.append(curr.left)
                 if curr.right:
                     queue.append(curr.right)
-            levels_average.append(sum(this_level) / curr_level_len)
+            levels_average.append(this_level_sum / curr_level_len)
         return levels_average
