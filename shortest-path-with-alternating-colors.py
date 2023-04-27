@@ -7,20 +7,17 @@ class Solution:
         for source, dest in blueEdges:
             adj_list[source].append((dest, "b"))
         
-        queue = deque([(0, "b"), (0, "r")])
+        queue = deque([(0, 0,"None")])
         visited = set()
-        shortest_path = -1
         answer = [-1] * n
 
         while queue:
-            shortest_path += 1
             length = len(queue)
-            for i in range(length):
-                curr_node, color = queue.popleft()
-                if answer[curr_node] == -1:
-                    answer[curr_node] = shortest_path
-                for adj in adj_list[curr_node]:
+            curr_node, path_len, color = queue.popleft()
+            if answer[curr_node] == -1:
+                answer[curr_node] = path_len
+            for adj in adj_list[curr_node]:
                     if adj not in visited and color != adj[1]:
-                        queue.append(adj)
+                        queue.append((adj[0], path_len + 1, adj[1]))
                         visited.add(adj)
         return answer
