@@ -10,6 +10,4 @@ class Solution:
                     visited.add(key)
                     queue.append(key)
             
-        if len(visited) == len(rooms):
-            return True
-        return False
+        return len(visited) == len(rooms)
