@@ -12,8 +12,7 @@ class Solution:
         
         deadends = set(deadends)
         pin = "0000"
-        if pin in deadends:
-            return -1
+        
         if pin == target:
             return 0
 
@@ -29,17 +28,19 @@ class Solution:
                 if curr == target:
                     pin = curr
                     break
+                if curr in deadends:
+                    continue
                 
                 for i in range(4):
                     left_adj_pin = curr[0:i] + nextLeft(curr[i]) + curr[i+1:]
 
-                    if left_adj_pin not in visited and left_adj_pin not in deadends:
+                    if left_adj_pin not in visited:
                         queue.append(left_adj_pin)
                         visited.add(left_adj_pin)
 
                     right_adj_pin = curr[0:i] + nextRight(curr[i]) + curr[i+1:]
 
-                    if right_adj_pin not in visited and right_adj_pin not in deadends:
+                    if right_adj_pin not in visited:
                         queue.append(right_adj_pin)
                         visited.add(right_adj_pin)
 
