@@ -16,14 +16,13 @@ class Solution:
                 new_speed = speed * 2
 
                 if new_pos == target:
-                    queue = []
-                    break
+                   return turns
 
                 if (new_pos, new_speed) not in visited:
                     queue.append((new_pos, new_speed))
                     visited.add((new_pos, new_speed))
                 
-                if position != 0: 
+                if position != 0:
                     # we can declerate (reverse)
                     if speed > 0:
                         new_speed = -1
@@ -32,5 +31,3 @@ class Solution:
                     if  (position, new_speed) not in visited:
                         queue.append((position, new_speed))
                         visited.add((position, new_speed))
-
-        return turns
