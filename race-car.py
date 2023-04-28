@@ -22,7 +22,7 @@ class Solution:
                     queue.append((new_pos, new_speed))
                     visited.add((new_pos, new_speed))
                 
-                if position != 0:
+                if (position + speed > target and speed > 0) or (position + speed < target and speed < 0):
                     # we can declerate (reverse)
                     if speed > 0:
                         new_speed = -1
