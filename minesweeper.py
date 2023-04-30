@@ -1,13 +1,13 @@
 class Solution:
     def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
+        if board[click[0]][click[1]] == "M":
+            board[click[0]][click[1]] = "X"
+            return board # game over
+        
         self.ReavelCellDFS(board, click[0], click[1])
         return board
 
     def ReavelCellDFS(self, grid, row, col):
-        if grid[row][col] == "M":
-            grid[row][col] = "X"
-            return True # game over
-        
         directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)]
         adjacents = []
         mine_count = 0
@@ -17,9 +17,10 @@ class Solution:
             inbound = 0 <= new_row < len(grid) and 0 <= new_col < len(grid[0])
             if not inbound:
                 continue
+                
             if grid[new_row][new_col] == "E":
                 adjacents.append((new_row, new_col))
-            
+
             if grid[new_row][new_col] == "M":
                 mine_count += 1
             
