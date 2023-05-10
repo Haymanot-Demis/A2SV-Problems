@@ -2,26 +2,30 @@ class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         incoming = defaultdict(int)
         dependency = defaultdict(list)
+        color = [0] * numCourses
 
         for course, pre in prerequisites:
             dependency[pre].append(course)
-            incoming[course] += 1
-        
-        queue = deque()
-        for course in range(numCourses):
-            if course not in incoming:
-                queue.append(course)
         answer = []
-            
-        while queue:
-            curr = queue.popleft()
-            answer.append(curr)
-            for course in dependency[curr]:
-                incoming[course] -= 1
-                if incoming[course] == 0:
-                    queue.append(course)
+        for course in range(numCourses):
+            if not self.dfs(dependency, course, color, answer):
+                return []
+                
+        return answer[::-1]
+
+    def dfs(self, dependency, course, color, answer):
+        if color[course] == 1:
+            return False
         
-        if len(answer) == numCourses:
-            return answer
-            
-        return []
+        if color[course] == 2:
+            return True
+
+        color[course] = 1
+        
+        for next_course in dependency[course]:
+            if not self.dfs(dependency, next_course, color, answer):
+                return False
+        
+        color[course] = 2
+        answer.append(course)
+        return True
