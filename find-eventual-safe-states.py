@@ -11,11 +11,11 @@ class Solution:
     
     def dfs(self, graph, color, node, safe):
         if color[node] == 1:
-            return False
+            return False   
 
         if color[node] == 2:
-            return True
-        
+            return True   
+            
         color[node] = 1
        
         isSafe = True
