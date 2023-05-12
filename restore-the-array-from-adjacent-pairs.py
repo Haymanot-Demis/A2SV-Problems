@@ -9,21 +9,19 @@ class Solution:
         
         queue = deque()
         for node, adjacents in graph.items():
-            incomings[node] = len(adjacents)
             if len(adjacents) == 1:
                 queue.append(node)
+                break
 
         nums = []
-        queue = deque([queue[0]])
         visited = set()
-        
+
         while queue:
             curr = queue.popleft()
             nums.append(curr)
-            visited.add(curr)
             for adj in graph[curr]:
-                incomings[adj] -= 1
-                if adj not in visited and incomings[adj] <= 1:
-                    queue.append(adj)
+                graph[curr].remove(adj)
+                graph[adj].remove(curr)
+                queue.append(adj)
         
         return nums
