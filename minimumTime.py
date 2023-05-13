@@ -30,4 +30,5 @@ class Solution:
                     incomings[next] -= 1
                     if incomings[next] == 0:
                         queue.append(next)
-        return time
+                        
+        return " ".join(map(str, time))
