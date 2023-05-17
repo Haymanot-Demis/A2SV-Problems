@@ -4,13 +4,13 @@ class Solution:
         
         """
         permutations = []
-        def backtrack(container, permutation):
+        def backtrack(container, permutation, permutations):
             if not container:
                 permutations.append(permutation)
-                return 
-            for num in container:
-                backtrack(container - set([num]), permutation + [num])
+                return
+            
+            for i,num in enumerate(container):
+                backtrack(container[0:i] + container[i+1:], permutation + [num], permutations)
 
-        backtrack(set(nums), [])
-
+        backtrack(nums, [], permutations)
         return permutations
