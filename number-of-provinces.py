@@ -1,22 +1,36 @@
 class Solution:
+    def init_union_find(self, size):
+        self.province = {i:i for i in range(size)}
+        self.size = [1] * size
+    def find(self, u):
+        if u == self.province[u]:
+            return u
+        self.province[u] = self.find(self.province[u])
+        return self.province[u]
+    
+    def union(self, u, v):
+        prov_u = self.find(u)
+        prov_v = self.find(v)
+
+        if prov_v != prov_u:
+            if self.size[prov_v] > self.size[prov_u]:
+                self.province[prov_v] = prov_u
+                self.size[prov_u] += self.size[prov_v]
+            else:
+                self.province[prov_u] = prov_v
+                self.size[prov_v] += self.size[prov_u]
+        
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
-        adj_list = defaultdict(list)
-        visited = set()
-        provinces = 0
+        self.init_union_find(len(isConnected))
+
         for i in range(len(isConnected)):
             for j in range(len(isConnected)):
                 if isConnected[i][j]:
-                    adj_list[i].append(j)
+                    self.union(i, j)
 
-        for city, adjacents in adj_list.items():
-            if city not in visited:
-                self.dfs(adj_list, city, visited)
-                provinces += 1
+        provinces = set()
+        for city in range(len(isConnected)):
+            prov = self.find(city)
+            provinces.add(prov)
         
-        return provinces
-
-    def dfs(self, adj_list, curr, visited):
-        visited.add(curr)
-        for adj in adj_list[curr]:
-            if adj not in visited:
-                self.dfs(adj_list, adj, visited)
+        return len(provinces)
