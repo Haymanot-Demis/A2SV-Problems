@@ -1,18 +1,28 @@
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         self.init_union_find(len(accounts))
+        acc_dict = defaultdict(str)
+
         for i in range(len(accounts)):
-            accounts[i] = set(accounts[i])
+            acc_dict[i] = set(accounts[i][1:])
+
         for i in range(len(accounts)):
             for j in range(i + 1, len(accounts)):
-                if len((accounts[i] & accounts[j])) >= 2:
+                if len((acc_dict[i] & acc_dict[j])) >= 1:
                     self.union(i, j)
+
         accnts = defaultdict(set)
+        owner = [""]*len(accounts)
+
         for i in range(len(accounts)):
-            accnts[self.find(i)] |= accounts[i]
+            rep = self.find(i)
+            owner[rep] = accounts[i][0]
+            accnts[rep] |= acc_dict[i]
+
         ans = []
         for rep, emails in accnts.items():
-            ans.append(sorted(emails))
+            ans.append([owner[rep]] + sorted(emails))
+            
         return ans
 
     def init_union_find(self, size):
