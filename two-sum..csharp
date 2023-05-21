@@ -1,0 +1,21 @@
+public class Solution {
+    public int[] TwoSum(int[] nums, int target) {
+        int start_indx = 0;
+        int end_indx = nums.Length - 1;
+
+        var sortedArray = nums.Select((value, index) => new { Index = index, Value = value })
+                       .OrderBy(item => item.Value)
+                       .ToArray();
+
+        while (sortedArray[start_indx].Value + sortedArray[end_indx].Value != target){
+            if (sortedArray[start_indx].Value + sortedArray[end_indx].Value > target){
+                end_indx -= 1;
+            } else {
+                start_indx = start_indx + 1;
+            }
+        }
+
+        int[] ans = {sortedArray[start_indx].Index, sortedArray[end_indx].Index};
+        return ans;
+    }
+}
