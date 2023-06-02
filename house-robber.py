@@ -1,13 +1,10 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        memo = {}
-        return self.backtrack(nums, 0, memo)
+        pprev, prev = 0, nums[0]
 
-    def backtrack(self, nums, indx, memo):
-        if indx >= len(nums):
-            return 0
-        if indx not in memo:
-            m1 = self.backtrack(nums, indx + 2, memo) + nums[indx]
-            m2 = self.backtrack(nums, indx + 1, memo)
-            memo[indx] = max(m1, m2)
-        return memo[indx]
+        for i in range(1, len(nums)):
+            temp = prev 
+            prev = max(pprev + nums[i], prev)
+            pprev = temp
+        
+        return max(pprev, prev)
