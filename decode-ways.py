@@ -12,5 +12,4 @@ class Solution:
             else:
                 ways_to_decode[i] = ways_to_decode[i + 1]
 
-        print(ways_to_decode)
         return ways_to_decode[0]
