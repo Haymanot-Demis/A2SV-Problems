@@ -1,26 +1,12 @@
 class Solution:
     def maxAlternatingSum(self, nums: List[int]) -> int:
-        memo = {}
+        memo = [0] * len(nums)
 
-        def dp(indx, parity):
-            # parity = True for even, False for odd
-            # if even we will add else we will subtract the current number
-            if indx == len(nums):
-                return 0
+        even, odd = 0, nums[0]
+
+        for i in range(len(nums)):
+            memo[i] = max(even + nums[i], odd - nums[i], odd)
+            even = max(even, odd - nums[i])
+            odd = max(odd, even + nums[i])
             
-            if (indx, parity) in memo:
-                return memo[(indx, parity)]
-            # if we take the current number
-            if parity:
-                one = nums[indx] + dp(indx + 1, not parity)
-            else:
-                one = -nums[indx] + dp(indx + 1, not parity)
-            
-            # if leave the current number
-            two = dp(indx + 1, parity)
-
-            memo[(indx, parity)] = max(one, two)
-
-            return memo[(indx, parity)]
-
-        return dp(0, True)
+        return max(even, odd)
