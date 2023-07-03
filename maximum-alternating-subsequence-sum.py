@@ -8,5 +8,5 @@ class Solution:
             memo[i] = max(even + nums[i], odd - nums[i], odd)
             even = max(even, odd - nums[i])
             odd = max(odd, even + nums[i])
-            
-        return max(even, odd)
+
+        return memo[-1]
