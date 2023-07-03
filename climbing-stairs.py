@@ -3,10 +3,8 @@ class Solution:
         memo = {0:0, 1:1, 2:2, 3:3}
         if n <= 3:
             return n
-        return self.help(n, memo)
+            
+        for i in range(4, n + 1):
+            memo[i] = memo[i - 1] + memo[i - 2]
         
-    def help(self, n: int, memo) -> int:
-        if n in memo:
-            return memo[n]
-        memo[n] = self.help(n - 1, memo) + self.help(n - 2, memo)
         return memo[n]
