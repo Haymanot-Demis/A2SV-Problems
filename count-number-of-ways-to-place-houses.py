@@ -1,10 +1,17 @@
 class Solution:
     def countHousePlacements(self, n: int) -> int:
-        memo = [0] * max(2, n)
-        memo[0] = 2
-        memo[1] = 3
+        if n == 1:
+            return 4
+        
+        if n == 2:
+            return 9
+
+        pprev = 2
+        prev = 3
+        modulo = 10 ** 9 + 7
 
         for i in range(2, n):
-            memo[i] = memo[i - 1] + memo[i - 2]
+            prev += pprev
+            pprev = prev - pprev
 
-        return (memo[n - 1] * memo[n - 1]) % (10 ** 9 + 7)
+        return (prev * prev) % modulo
