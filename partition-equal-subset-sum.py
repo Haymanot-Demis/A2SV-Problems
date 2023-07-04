@@ -1,5 +1,7 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
+        if sum(nums) % 2 != 0:
+            return False
         memo = {}
         return self.help(nums, 0, 0, memo)
 
@@ -10,9 +12,6 @@ class Solution:
             return False
         
         if (target, indx)  in memo:
-            return memo[(target, indx)]
-
-        if (target, indx) in memo:
             return memo[(target, indx)]
 
         res1 = self.help(nums, indx + 1, target + nums[indx], memo)
