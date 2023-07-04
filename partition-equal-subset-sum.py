@@ -1,24 +1,24 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         memo = {}
-        return self.help(nums, 0, 0, 0, memo)
+        return self.help(nums, 0, 0, memo)
 
-    def help(self, nums, indx, sum1, sum2, memo):
+    def help(self, nums, indx, target, memo):
         if indx == len(nums):
-            if sum1 == sum2:
+            if target == 0:
                 return True
             return False
         
-        if (sum1 - sum2, indx)  in memo:
-            return memo[(sum1 - sum2, indx)]
+        if (target, indx)  in memo:
+            return memo[(target, indx)]
 
-        if (sum2 - sum1, indx) in memo:
-            return memo[(sum2 - sum1, indx)]
+        if (target, indx) in memo:
+            return memo[(target, indx)]
 
-        res1 = self.help(nums, indx + 1, sum1 + nums[indx], sum2, memo)
+        res1 = self.help(nums, indx + 1, target + nums[indx], memo)
         if res1:
             return True
-        res2 = self.help(nums, indx + 1, sum1, sum2 + nums[indx], memo)
-        memo[(sum1 - sum2, indx)] = memo[(sum2 - sum1, indx)] = res2
+        res2 = self.help(nums, indx + 1, target - nums[indx], memo)
+        memo[(target, indx)] = res2
 
         return res2
