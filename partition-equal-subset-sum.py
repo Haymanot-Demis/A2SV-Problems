@@ -9,12 +9,16 @@ class Solution:
                 return True
             return False
         
-        if (sum1, sum2, indx)  in memo:
-            return memo[(sum1, sum2, indx)]
+        if (sum1 - sum2, indx)  in memo:
+            return memo[(sum1 - sum2, indx)]
+
+        if (sum2 - sum1, indx) in memo:
+            return memo[(sum2 - sum1, indx)]
+
         res1 = self.help(nums, indx + 1, sum1 + nums[indx], sum2, memo)
         if res1:
             return True
         res2 = self.help(nums, indx + 1, sum1, sum2 + nums[indx], memo)
-        memo[(sum1, sum2, indx)] = res2
+        memo[(sum1 - sum2, indx)] = memo[(sum2 - sum1, indx)] = res2
 
         return res2
