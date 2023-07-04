@@ -1,21 +1,14 @@
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        memo = {}
-        return self.backtrack(nums, 0, target, memo)
-    
-    def backtrack(self, nums, indx, target, memo):
-        if indx >= len(nums):
-            return target == 0
+        memo = defaultdict(int)
+        memo[nums[0]] = 1
+        memo[-nums[0]] += 1
+
+        for i in range(1, len(nums)):
+            temp_memo = defaultdict(int)
+            for sum, count in memo.items():
+                temp_memo[sum + nums[i]] += count
+                temp_memo[sum - nums[i]] += count
+            memo = temp_memo
         
-        if (target, indx) in memo:
-            return memo[(target, indx)]
-        
-        valids = 0
-        res = self.backtrack(nums, indx + 1, target + nums[indx], memo)        
-        if res:
-            valids += res
-        res = self.backtrack(nums, indx + 1, target - nums[indx], memo)
-        if res:
-            valids += res
-        memo[(target, indx)] = valids
-        return valids
+        return memo[target]
