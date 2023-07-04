@@ -7,4 +7,4 @@ class Solution:
             prev = max(pprev + nums[i], prev)
             pprev = temp
         
-        return max(pprev, prev)
+        return prev
