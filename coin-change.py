@@ -1,24 +1,23 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        memo = {0:0}
-        result = self.backtrack(coins, amount, memo)
+        memo = defaultdict(lambda : inf)
+        def dp(target):
+            if target in memo:
+                return memo[target]
+
+            if target == amount:
+                return 0
+
+            if target > amount:
+                return inf
+
+            ans = inf
+            for i in range(len(coins)):
+                ans = min(ans, dp(target + coins[i]) + 1)
+            memo[target] = ans
+            return ans
+
+        result = dp(0)
         if result == inf:
             return -1
         return result
-    def backtrack(self,coins, amount, memo):
-        if amount in memo:
-            return memo[amount]
-
-        if amount == 0:
-            return 0
-        
-        if amount < 0:
-            return inf
-
-        count = inf        
-        for i in range(len(coins)):
-            res = self.backtrack(coins, amount - coins[i], memo)
-            count = min(count, res + 1)
-
-        memo[amount] = count
-        return count
