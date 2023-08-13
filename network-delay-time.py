@@ -4,19 +4,21 @@ class Solution:
         for u, v, w in times:
             adj_list[u].append((v, w))
         
-        memo = [inf] * n
-        def minTimeToSignal(node, time):
-            if memo[node - 1] <= time:
-                return 
-            memo[node - 1] = time
-            for adj in adj_list[node]:
+        signalReachedAt = [inf] * n
+        signalReachedAt[k - 1] = 0
+
+        queue = deque([(k, 0)])
+
+        while queue:
+            u, time = queue.popleft()
+
+            for adj in adj_list[u]:
                 v, w = adj
-                minTimeToSignal(v, time + w)
-
-            return
-        minTimeToSignal(k, 0)
-
-        if inf  in memo:
+                if signalReachedAt[v - 1] > time + w:
+                    queue.append((v , time + w))
+                    signalReachedAt[v - 1] = time + w
+        
+        if inf  in signalReachedAt:
             return -1
 
-        return max(memo)
+        return max(signalReachedAt)
