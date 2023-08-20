@@ -1,27 +1,23 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        reverse_graph = defaultdict(list)
-        outgoing = defaultdict(int)
-
-        for node, destinations in enumerate(graph):
-            for dest in destinations:
-                reverse_graph[dest].append(node)
-            outgoing[node] += len(destinations)
-        
-        queue = deque()
-
-        for node in range(len(graph)):
-            if outgoing[node] == 0:
-                queue.append(node)
+        color = [0] * len(graph)
+        safe_states = []
+        def dfs(node):
+            if color[node] == 1:
+                return False
             
-        answer = []
-        print(queue)
-        while queue:
-            curr = queue.popleft()
-            answer.append(curr)
-            for source in reverse_graph[curr]:
-                outgoing[source] -= 1
-                if outgoing[source] == 0:
-                    queue.append(source)
+            if color[node] == 2:
+                return True
+            color[node] = 1
+            for neighbour in graph[node]:
+                is_safe = dfs(neighbour)
+                if not is_safe:
+                    return False
+            color[node] = 2
+            safe_states.append(node)
+            return True
         
-        return sorted(answer)
+        for i in range(len(graph)):
+            dfs(i)
+        safe_states.sort()
+        return safe_states
