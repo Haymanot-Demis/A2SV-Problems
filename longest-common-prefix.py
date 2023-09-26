@@ -1,6 +1,6 @@
 class TrieNode:
     def __init__(self):
-        self.kids = [None for _ in range(26)]
+        self.kids = defaultdict(TrieNode)
         self.isEOW = False
 class Trie:
 
@@ -11,16 +11,12 @@ class Trie:
         node = self.root
 
         for ch in word:
-            indx = ord(ch) - ord('a')
-
-            if not node.kids[indx]:
-                node.kids[indx] = TrieNode()
+            if ch not in node.kids:
+                node.kids[ch] = TrieNode()
             
-            node = node.kids[indx]
+            node = node.kids[ch]
 
         node.isEOW = True
-
-
 
     def search(self, word: str) -> bool:
         node = self.root
@@ -33,7 +29,6 @@ class Trie:
             
             return node.isEOW
         
-
     def startsWith(self, prefix: str) -> bool:
         node = self.root
 
@@ -47,14 +42,12 @@ class Trie:
         
     def longestCommonPrefix(self):
         node = self.root
-        count = 0
         prefix = ""
-        while not node.isEOW and node.kids.count(None) == 25:
-            for i, ch in enumerate(node.kids):
-                if ch:
-                    prefix += chr(ord('a') + i)
-                    node = ch
-                    break
+        while not node.isEOW and len(node.kids) == 1:
+            for ch, kids in node.kids.items():
+                prefix += ch
+                node = kids
+                break
         return prefix
 
 class Solution:
