@@ -3,25 +3,13 @@ class Solution:
         players = sorted(zip(ages, scores))     
 
         memo = [score for age, score in players]
-        visited = set()
-
-        def dp(indx, prev):
-            if indx >= len(players):
-                return 0
+        for i in range(len(players)):
+            max_score = 0
+            for j in range(i):
+                if players[i][1] >= players[j][1]:
+                    print(j)
+                    max_score = max(max_score, memo[j])
             
-            if players[indx][1] < players[prev][1]:
-                if indx not in visited:
-                    memo[indx] += dp(indx + 1, indx)
-                    visited.add(indx)
-
-                return dp(indx + 1, prev)
-
-            if indx not in visited:
-                memo[indx] += dp(indx + 1, indx)
-                visited.add(indx)
-            
-            return max(memo[indx], dp(indx + 1, prev))
-        
-        res = dp(0, 0)
+            memo[i] += max_score
 
         return max(memo)
