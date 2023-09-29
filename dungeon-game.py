@@ -21,15 +21,8 @@ class Solution:
                 down = memo[(i + 1, j)]
 
                 nxt = min(right, down)
+                curr = nxt - dungeon[i][j]
 
-                if dungeon[i][j] < 0:
-                    curr = nxt + abs(dungeon[i][j])
-                else:
-                    if nxt <= dungeon[i][j]:
-                        curr = 1
-                    else:
-                        curr = nxt - dungeon[i][j]
-
-                memo[(i, j)] = curr 
+                memo[(i, j)] = max(1, curr)
                 
         return memo[(0, 0)]
