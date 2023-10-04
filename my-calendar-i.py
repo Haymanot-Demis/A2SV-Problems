@@ -5,28 +5,26 @@ class MyCalendar:
         self.calander = SortedList([])
         
     def book(self, start: int, end: int) -> bool:
+        isPossible = False
         if not self.calander:
-            self.calander.add((start, end))
-            return True
+            isPossible = True
         else:
             pos = self.calander.bisect_left((start, end))
             if pos == len(self.calander):
                 if self.calander[pos - 1][1] <= start:
-                    self.calander.add((start, end))
-                    return True
-                else:
-                    return False
+                    isPossible = True
             elif pos == 0:
                 if self.calander[0][0] >= end:
-                    self.calander.add((start, end))
-                    return True
-                else:
-                    return False
+                    isPossible = True
             else:
                 if self.calander[pos][0] >= end and self.calander[pos - 1][1] <= start:
-                    self.calander.add((start, end))
-                    return True
-                
+                    isPossible = True
+
+
+        if isPossible:
+            self.calander.add((start, end))
+
+        return isPossible                
 
 # Your MyCalendar object will be instantiated and called as such:
 # obj = MyCalendar()
