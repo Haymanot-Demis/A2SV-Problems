@@ -6,14 +6,28 @@
 #         self.right = right
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def inorder(node, values):
-            if node:
-                inorder(node.left, values)
-                values.append(node.val)
-                inorder(node.right, values)
-            return values
-        values = inorder(root, [])
-        for i in range(1, len(values)):
-            if values[i] <= values[i - 1]:
-                return False
-        return True
+        def helper(node, prev=None):
+            if not node.left and not node.right:
+                if prev:
+                    return [node.val > prev,node.val]
+                return [True, node.val]
+            if not node.left:
+                right = helper(node.right, node.val)
+                if right[0] and node.val < right[1]:
+                    return right
+                return [False, right[1]]
+            if not node.right:
+                left = helper(node.left, prev)
+                if left[0] and node.val > left[1]:
+                    return [True, node.val]
+                return [False, left[1]]
+            
+            left = helper(node.left, prev)
+            if left[0] and node.val > left[1]:
+                right = helper(node.right, node.val)
+                if right[0] and node.val < right[1]:
+                    return right
+                return [False, right[1]]
+            return [False, node.val]
+
+        return helper(root)[0]
