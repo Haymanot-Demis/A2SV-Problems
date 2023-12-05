@@ -1,34 +1,22 @@
 class DetectSquares:
 
     def __init__(self):
-        self.points = defaultdict(set)
-        self.freq = defaultdict(int)        
+        self.points = collections.defaultdict(int)
 
     def add(self, point: List[int]) -> None:
-        self.points[point[0]].add(tuple(point))
-        self.freq[tuple(point)] += 1        
+        self.points[tuple(point)] += 1
 
     def count(self, point: List[int]) -> int:
-        x_axis = self.points[point[0]]
-        squares = 0
+        square_count = 0
+        x1, y1 = point
 
-        for p in x_axis:
-            if p[1] != point[1]:
+        for (x2, y2), n in self.points.items():
+            x_dist, y_dist = abs(x1 - x2), abs(y1 - y2)
+            if x_dist == y_dist and x_dist > 0:
+                corner1 = (x1, y2)
+                corner2 = (x2, y1)
+                if corner1 in self.points and corner2 in self.points:
+                    square_count += n * self.points[corner1] * self.points[corner2]
 
-                # to left
-                s = abs(point[1] - p[1])
-                p1 = (p[0] - s, p[1])
-                p2 = (p[0] - s, point[1])
-
-                squares += self.freq[p1] * self.freq[p2] * self.freq[p]
-
-                p1 = (p[0] + s, p[1])
-                p2 = (point[0] + s, point[1])
-
-                squares += self.freq[p1] * self.freq[p2] * self.freq[p]
-        return squares
-
-# Your DetectSquares object will be instantiated and called as such:
-# obj = DetectSquares()
-# obj.add(point)
-# param_2 = obj.count(point)
+        return square_count
+    
